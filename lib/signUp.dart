@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'Gender.dart';
+import 'User.dart';
 import 'mainPage.dart';
+
 class SignUp extends StatefulWidget {
   @override
   _SignUpState createState() => _SignUpState();
 }
 
 class _SignUpState extends State<SignUp> {
+   User newUser = User();
+   Gender g;
   var addressList = [];
   Position _currentPosition;
   var personImage = AssetImage(
@@ -45,6 +50,9 @@ class _SignUpState extends State<SignUp> {
                           Expanded(
                             flex: 4,
                             child: TextFormField(
+                              onSaved: (value){
+                                newUser.name = value;
+                              },
                               validator: (value){
                                 if (value.isEmpty){
                                   return "Enter your name";
@@ -70,6 +78,7 @@ class _SignUpState extends State<SignUp> {
                             personImage = AssetImage(
                               'images/userpic.png',
                             );
+                            g = Gender.MALE;
                             ManColorButton = Colors.green[300];
                             WoanColorButton = Colors.yellow[300];
                           });
@@ -88,6 +97,7 @@ class _SignUpState extends State<SignUp> {
                             GestureDetector(
                               onTap: (){
                                 setState(() {
+                                  g = Gender.FEMALE;
                                   personImage = AssetImage(
                                     'images/woman-person.jpg',
                                   );
@@ -109,6 +119,9 @@ class _SignUpState extends State<SignUp> {
                     Padding(
                       padding: const EdgeInsets.all(15),
                       child: TextFormField(
+                        onSaved: (value){
+                          newUser.phoneNumber = value;
+                        },
                         validator: (value){
                           if (value.isEmpty){
                             return "Enter Your PhoneNumber";
@@ -185,12 +198,16 @@ class _SignUpState extends State<SignUp> {
                         ),
                       ),
                     ), //
-                    if (!addressList.isEmpty)
+                    if (addressList.isNotEmpty)
                       for (var address in addressList)
                         address, // address
                     Padding(
                       padding: const EdgeInsets.only(bottom: 15, left: 15, right: 15),
                       child: TextFormField(
+                        onSaved: (value){
+                          newUser.userGender = g;
+                          newUser.password = value;
+                        },
                         validator: (String value){
                           if (value.isEmpty){
                             return "Please Enter Your Password";
@@ -231,9 +248,10 @@ class _SignUpState extends State<SignUp> {
                         onPressed: (){
                     setState(() {
                       if (_formKey.currentState.validate()){
+                        _formKey.currentState.save();
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => MainPage()),
+                          MaterialPageRoute(builder: (context) => MainPage(user: newUser,)),
                         );
                       };
                     });

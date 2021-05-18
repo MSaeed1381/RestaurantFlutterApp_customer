@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:snap_food/Gender.dart';
+import 'package:snap_food/components/Gender.dart';
 
 class User{
   String name;
@@ -8,6 +8,10 @@ class User{
   var personImage;
   int balance = 0;
   String password;
+  List previousOrder = [];
+  List activeOrders = [];
+  List favoriteRestaurants = [];
+  List comments = [];
   User(){
    userGender == Gender.MALE ? personImage =AssetImage(
      'images/userpic.png',

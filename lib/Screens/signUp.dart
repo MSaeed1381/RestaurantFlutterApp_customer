@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'Gender.dart';
-import 'User.dart';
+import 'package:snap_food/components/Gender.dart';
+import '../components/User.dart';
 import 'mainPage.dart';
 
 class SignUp extends StatefulWidget {
@@ -23,6 +23,10 @@ class _SignUpState extends State<SignUp> {
   var _formKey = GlobalKey<FormState>();
   bool _securityPassword = true;
   Icon visIcon = Icon(Icons.visibility_off);
+  void getLocation() async{
+    Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.bestForNavigation);
+    print (position);
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -148,6 +152,9 @@ class _SignUpState extends State<SignUp> {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 15, left: 15, right: 15),
                       child: TextFormField(
+                        onSaved: (value){
+
+                        },
                         validator: (value){
                           if (value.isEmpty){
                             return "Enter your address";
@@ -166,33 +173,11 @@ class _SignUpState extends State<SignUp> {
                           suffixIcon: GestureDetector(
                             onTap: (){
                               setState(() {
-                                addressList.add(
-                                    Padding(
-                                      padding: const EdgeInsets.only(bottom: 15, left: 15, right: 15),
-                                      child: TextFormField(
-                                        validator: (value){
-                                          if (value.isEmpty){
-                                            return "Enter your address";
-                                          }
-                                          else
-                                            return null;
-                                        },
-                                        decoration: InputDecoration(
-                                          filled: true,
-                                          labelText: 'address',
-                                          labelStyle: TextStyle(
-                                            fontSize: 20.0,
-                                          ),
-                                          border: OutlineInputBorder(),
-                                          prefixIcon: Icon(Icons.home_outlined),
-                                        ),
-                                      ),
-                                    ));
+
                               });
                             },
                             child: Icon(
                               Icons.add,
-
                             ),
                           ),
                         ),

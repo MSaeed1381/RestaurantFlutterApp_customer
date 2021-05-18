@@ -1,9 +1,12 @@
-
+import 'package:snap_food/Screens/CartPage.dart';
+import 'package:snap_food/components/Food.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:snap_food/profilePage.dart';
+import 'package:snap_food/Screens/Home_Page.dart';
+import 'package:snap_food/components/User.dart';
+import 'login.dart';
+import 'profilePage.dart';
 import 'signUp.dart';
-import 'User.dart';
 class MainPage extends StatefulWidget {
   final User user;
   const MainPage({
@@ -15,6 +18,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+
   User user;
   _MainPageState(User user){
     this.user = user;
@@ -24,15 +28,12 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     final pages = [
+      Home_page(user: user,),
       Container(),
-      Container(),
-      Container(),
+      Cart_page(),
       ProfilePage(user: user,),
     ];
     return Scaffold(
-    appBar: AppBar(
-      title: Text('Snap Food'),
-      ),
       body: pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,

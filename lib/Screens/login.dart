@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:snap_food/mainPage.dart';
-import 'signUp.dart';
 import 'mainPage.dart';
+import 'signUp.dart';
+import 'package:snap_food/Screens/mainPage.dart';
 class Login extends StatefulWidget {
   @override
   _LoginState createState() => _LoginState();

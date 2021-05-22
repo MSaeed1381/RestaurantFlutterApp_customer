@@ -1,4 +1,4 @@
-enum FoodLabel{
+enum RestaurantLabel{
  PIZZA,
  SALAD,
  ITALIAN,

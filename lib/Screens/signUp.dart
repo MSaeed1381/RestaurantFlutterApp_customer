@@ -234,7 +234,7 @@ class _SignUpState extends State<SignUp> {
                     setState(() {
                       if (_formKey.currentState.validate()){
                         _formKey.currentState.save();
-                        Navigator.push(
+                        Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(builder: (context) => MainPage(user: newUser,)),
                         );

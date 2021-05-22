@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:snap_food/components/Gender.dart';
+import 'package:snap_food/components/Restaurant.dart';
 
 class User{
   String name;
@@ -12,6 +13,9 @@ class User{
   List activeOrders = [];
   List favoriteRestaurants = [];
   List comments = [];
+  Map <Restaurant, List> cartList = {
+
+  };
   User(){
    userGender == Gender.MALE ? personImage =AssetImage(
      'images/userpic.png',

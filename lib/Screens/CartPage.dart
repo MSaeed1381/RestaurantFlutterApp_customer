@@ -1,152 +1,163 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:snap_food/components/Food.dart';
-import 'package:snap_food/components/Food_Label.dart';
+import 'package:snap_food/Screens/RestaurantPage.dart';
+import 'package:snap_food/components/Restaurant.dart';
 import 'package:snap_food/constants.dart';
-class Cart_page extends StatefulWidget {
+import 'package:snap_food/components/User.dart';
+class CartPage extends StatefulWidget {
+  final User user;
+  const CartPage({
+    Key key,
+    this.user,
+  }) : super(key: key);
   @override
-  _Cart_pageState createState() => _Cart_pageState();
+  _CartPageState createState() => _CartPageState(user: user);
 }
 
-class _Cart_pageState extends State<Cart_page> {
+class _CartPageState extends State<CartPage> {
+  User user;
+  _CartPageState({this.user});
   @override
   Widget build(BuildContext context) {
-    List foods = [
-      Food(name: "cheese Pizza", details: "2sikh fjskdfds ldfsd fsdif dsf", price: 5 , image: Image(image: AssetImage('images/pizza1.jpg')),),
-      Food(name: "cheese Pizza", details: "2sikh fjskdfds ldfsd fsdif dsf", price: 5 , image: Image(image: AssetImage('images/pizza1.jpg')),),
-      Food(name: "cheese Pizza", details: "2sikh fjskdfds ldfsd fsdif dsf", price: 5 , image: Image(image: AssetImage('images/pizza1.jpg')),),
-      Food(name: "cheese Pizza", details: "2sikh fjskdfds ldfsd fsdif dsf", price: 5 , image: Image(image: AssetImage('images/pizza1.jpg')),),
-      Food(name: "cheese Pizza", details: "2sikh fjskdfds ldfsd fsdif dsf", price: 5 , image: Image(image: AssetImage('images/pizza1.jpg')),),
-      Food(name: "cheese Pizza", details: "2sikh fjskdfds ldfsd fsdif dsf", price: 5 , image: Image(image: AssetImage('images/pizza1.jpg')),),
-      Food(name: "cheese Pizza", details: "2sikh fjskdfds ldfsd fsdif dsf", price: 5 , image: Image(image: AssetImage('images/pizza1.jpg')),),
-    ];
-    return Scaffold(
-        backgroundColor: Colors.grey[600],
+      return Scaffold(
+        backgroundColor: Colors.grey[500],
         appBar: AppBar(
+          title: Text('Cart'),
         ),
-        body: Container(),
-    );
-  }}
-
-class FoodsListView extends StatelessWidget {
-  FoodsListView({this.foods});
-  List foods;
-
-  @override
-  Widget build(BuildContext context) {
-
-
-    return ListView.builder(
-        padding: const EdgeInsets.only(left: 8, right: 8, top: 5,bottom: 5),
-        itemCount: foods.length,
-        itemBuilder: (BuildContext context, int index) {
-          return GestureDetector(
-            child: Container(
-              margin: EdgeInsets.only(bottom: 5),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        padding: EdgeInsets.all(10),
-                        width: 170,
-                        height: 120,
-                        child:foods[index].image,
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(foods[index].name,
-                            style: TextStyle(
-                              fontSize: 27,
-                              fontWeight: FontWeight.w900,
-                              letterSpacing: 1.6,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Text(foods[index].details,
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                            ),),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Text(foods[index].restaurantName,
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w700,
-                            ),),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        flex: 3,
-                        child: Container(
-                          color: Colors.green[400],
-                          margin: EdgeInsets.only(left: 10, bottom: 10, right: 10),
-                          //padding: EdgeInsets.only(left: 15, bottom: 10, right: 10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+        body: ListView.builder(
+          itemBuilder: (context, index) {
+            Restaurant currentRestaurant = user.cartList.keys.toList()[index];
+            return Padding(
+              padding: EdgeInsets.only(bottom: 5),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.white,
+                ),
+                margin: EdgeInsets.only(left: 7, right: 7, top: 10),
+                child: Column(
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(top: 16),
+                          width: 180,
+                          height: 120,
+                          child: currentRestaurant.image,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 18, bottom: 16),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(foods[index].price.toString(),
-                                  style: cardstyle
-                              ),
+                              Text(currentRestaurant.name,
+                                style: restaurantTitleStyle,),
                               SizedBox(
-                                width: 5,
+                                height: 15,
                               ),
-                              Icon(
-                                Icons.monetization_on_sharp,
-                                size: 20,
+                              Text('this is date',
+                                  style: textStyle),
+                              SizedBox(
+                                height: 15,
                               ),
+                              Text('this is address',
+                                  style: textStyle)
                             ],
                           ),
                         ),
-                      ),
-                      Expanded(
-                        flex: 4,
-                        child: Container(
-                          margin: EdgeInsets.only(left: 10,right: 10,bottom: 10),
-                          color: Colors.grey[400],
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.shopping_cart,
-                                size: 20,
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Text("add cart",
-                                style: cardstyle,),
-                            ],
+                      ],
+                    ),
+                    ListView.builder(
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 16.0,
+                            vertical: 8.0,
                           ),
-                        ),),
-                    ],
-                  ),
-                ],
+                          child:
+                          Container(
+                            padding: EdgeInsets.only(left: 10, right: 30),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(user.cartList[currentRestaurant][index].name + " ( " + user.cartList[currentRestaurant][index].counter.toString() + " )"
+                                  ,style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                                Text(user.cartList[currentRestaurant][index].price.toString() + " \$",
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w900,
+                                  ),),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                      itemCount: user.cartList[currentRestaurant].length,
+                      shrinkWrap: true, // todo comment this out and check the result
+                      physics: ClampingScrollPhysics(), // todo comment this out and check the result
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Row(
+                      children: [
+                        CartPageButton(text: 'remove Cart', backgroundColor: Colors.pink,textColor: Colors.white,onTab: (){
+                          setState(() {
+                            for(int i = 0; i < user.cartList[currentRestaurant].length;i++){
+                              user.cartList[currentRestaurant][i].counter = 1;
+                            }
+                            user.cartList.remove(currentRestaurant);
+                          });
+                        },),
+                        CartPageButton(text: 'continue', backgroundColor: Colors.green[600],textColor: Colors.white,),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-          );
-        }
+            );
+          },
+          itemCount: user.cartList.length,
+        ),
+      );
+    }
+}
+
+class CartPageButton extends StatelessWidget {
+  String text;
+  Color backgroundColor;
+  Color textColor;
+  Function onTab;
+  CartPageButton({this.onTab,this.text, this.backgroundColor, this.textColor});
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: GestureDetector(
+        onTap: onTab,
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: backgroundColor,
+          ),
+          margin: EdgeInsets.all(10),
+          height: 60,
+          width: 150,
+          child: Center(child: Text(text,
+            style: TextStyle(
+              fontWeight: FontWeight.w700,
+              fontSize: 22,
+              color: textColor,
+              letterSpacing: 1.6,
+            ),)),
+        ),
+      ),
     );
   }
 }

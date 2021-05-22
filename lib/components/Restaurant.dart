@@ -1,21 +1,30 @@
 import 'package:flutter/cupertino.dart';
+import 'package:snap_food/components/Food_Label.dart';
+
+import 'Gender.dart';
 
 class Restaurant {
   String name;
   double score = 4.5;
+  int discount = 0;
   List comments = [];
+  RestaurantLabel label;
   Image image;
-  List Pizza_List = [];
-  List Salad_List = [];
-  List Kebab_List = [];
-  List Mexican_List = [];
-  List Burger_List = [];
-  List Sandwich_List = [];
-  List Indian_List = [];
-  List Vegetarian_List = [];
-  List Chinese_List = [];
+  List favoriteFoodList = [];
+  List foodList = [];
+  List saladList = [];
+  List vegetarianList = [];
+  List drinkList = [];
 
-  Restaurant(
-      // ignore: non_constant_identifier_names
-      {@required this.name,@required  this.image,@required  this.Burger_List,@required  this.Chinese_List,@required  this.Indian_List,@required  this.Kebab_List,@required  this.Mexican_List,@required  this.Pizza_List,@required  this.Salad_List,@required  this.Sandwich_List,@required  this.Vegetarian_List,});
-}
+
+  Restaurant({@required String name,@required Image image,@required List foodList,@required List saladList,@required List vegetarianList, int discount,@required List drinkList,@required RestaurantLabel label}){
+    this.name = name;
+    this.image = image;
+    this.foodList = foodList;
+    this.saladList = saladList;
+    this.vegetarianList = vegetarianList;
+    this.drinkList = drinkList;
+    this.discount = discount;
+    this.label = label;
+  }
+  }

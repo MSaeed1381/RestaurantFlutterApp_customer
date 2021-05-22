@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:snap_food/Screens/RestaurantPage.dart';
 import 'package:snap_food/components/Food.dart';
 import 'package:snap_food/components/FoodListView.dart';
 import 'package:snap_food/components/Food_Label.dart';
 import 'package:snap_food/components/Restaurant.dart';
+import 'package:snap_food/components/RestaurantListView.dart';
 import 'package:snap_food/constants.dart';
 import 'package:snap_food/components/User.dart';
 class Home_page extends StatefulWidget {
@@ -22,123 +24,104 @@ class _Home_pageState extends State<Home_page> {
   _Home_pageState(User user){
     this.user = user;
   }
-  List restaurants = [
-    Restaurant(
-      name: 'restaurant1',
-      image: Image(image: AssetImage('images/restaurants.jpg'),),
-      Burger_List: [
-        Food(name: "burger1", details: "2sikh fjskdfds ldfsd fsdif dsf", price: 5 , image: Image(image: AssetImage('images/pizza1.jpg'),),id: 0),
-        Food(name: "burger2", details: "2sikh fjskdfds ldfsd fsdif dsf", price: 5 , image: Image(image: AssetImage('images/pizza1.jpg')),id: 0),
-      ],
-      Chinese_List: [
-        Food(name: "burger1", details: "2sikh fjskdfds ldfsd fsdif dsf", price: 5 , image: Image(image: AssetImage('images/pizza1.jpg')),id: 0),
-      ],
-      Indian_List: [
-        Food(name: "burger1", details: "2sikh fjskdfds ldfsd fsdif dsf", price: 5 , image: Image(image: AssetImage('images/pizza1.jpg')),id: 0),
-      ],
-      Kebab_List: [],
-      Mexican_List: [],
-      Pizza_List: [],
-      Salad_List: [],
-      Sandwich_List: [],
-      Vegetarian_List: [],
-    ),
-    Restaurant(
-      name: 'restaurant2',
-      image: Image(image: AssetImage('images/restaurants.jpg'),),
-      Burger_List: [
-        Food(name: "burger3", details: "2sikh fjskdfds ldfsd fsdif dsf", price: 5 , image: Image(image: AssetImage('images/pizza1.jpg')),id: 1),
-        Food(name: "burger4", details: "2sikh fjskdfds ldfsd fsdif dsf", price: 5 , image: Image(image: AssetImage('images/pizza1.jpg')),id: 1),
-      ],
-      Chinese_List: [
-        Food(name: "burger1", details: "2sikh fjskdfds ldfsd fsdif dsf", price: 5 , image: Image(image: AssetImage('images/pizza1.jpg')),id: 1),
-      ],
-      Indian_List: [
-        Food(name: "burger1", details: "2sikh fjskdfds ldfsd fsdif dsf", price: 5 , image: Image(image: AssetImage('images/pizza1.jpg')),id: 1),
-      ],
-      Kebab_List: [],
-      Mexican_List: [],
-      Pizza_List: [],
-      Salad_List: [],
-      Sandwich_List: [],
-      Vegetarian_List: [],
-    ),
-
-  ];
+  List restaurants = AllRestaurants;
+  List items = [];
+  Icon cusIcon = Icon(Icons.search);
+  Widget cusTitle = Text('snap food');
+  PreferredSizeWidget cusTabBar = tabBar;
   @override
   Widget build(BuildContext context) {
-    List pizzas = [];
-    List salads = [];
-    List kebabs = [];
-    List mexicans = [];
-    List burgers = [];
-    List sandwichs = [];
-    List indians = [];
-    List vegetarians = [];
-    List chineses = [];
+    List pizzaRst = [];
+    List iranianRst = [];
+    List mexicanRst = [];
+    List burgerRst = [];
+    List sandwichRst = [];
+    List indianRst = [];
+    List chineseRst = [];
     for (Restaurant restaurant in restaurants){
-      pizzas.addAll(restaurant.Pizza_List);
-      salads.addAll(restaurant.Salad_List);
-      kebabs.addAll(restaurant.Kebab_List);
-      mexicans.addAll(restaurant.Mexican_List);
-      burgers.addAll(restaurant.Burger_List);
-      sandwichs.addAll(restaurant.Sandwich_List);
-      indians.addAll(restaurant.Indian_List);
-      vegetarians.addAll(restaurant.Vegetarian_List);
-      chineses.addAll(restaurant.Chinese_List);
+      switch(restaurant.label){
+        case RestaurantLabel.BURGER : burgerRst.add(restaurant);break;
+        case RestaurantLabel.KEBAB : iranianRst.add(restaurant);break;
+        case RestaurantLabel.PIZZA : pizzaRst.add(restaurant);break;
+        case RestaurantLabel.SANDWICH : sandwichRst.add(restaurant);break;
+        case RestaurantLabel.INDIAN : indianRst.add(restaurant);break;
+        case RestaurantLabel.MEXICAN : mexicanRst.add(restaurant);break;
+        case RestaurantLabel.CHINESE : chineseRst.add(restaurant);
+      }
     }
 
     return DefaultTabController(
-      length: 8,
+      length: 7,
       child: Scaffold(
         backgroundColor: Colors.grey[600],
         appBar: AppBar(
-          bottom: TabBar(
-            isScrollable: true,
-            tabs: [
-              Tab(
-                text: "BURGER",
+          leading: Icon(Icons.format_align_justify_outlined),
+          actions: [
+            IconButton(
+              onPressed: (){
+                items.clear();
+                setState(() {
+                  if (this.cusIcon.icon == Icons.search){
+                    cusTabBar = null;
+                    cusIcon = Icon(Icons.cancel_outlined);
+                    cusTitle = TextFormField(
+                    onChanged: (value){
+                      setState(() {
+                        if (value.isEmpty){
+                          items.clear();
+                        }
+                        else{
+                          items.clear();
+                          print(value);
+                          restaurants.forEach((element) {
+                            if (element.name.toString().toLowerCase().contains(value.toLowerCase())){
+                                items.add(element);
+                            }
+                          });
+                        }
+                      });
+
+                    },
+                    decoration: InputDecoration(
+
+                      hintText: 'search...',
+                    ),
+                    );
+                  }
+
+                  else{
+                    cusTabBar = tabBar;
+                    cusIcon = Icon(Icons.search);
+                    cusTitle = Text('snap food');
+                  }
+
+                });
+              },
+              icon: cusIcon,
+            ),
+            IconButton(
+              icon: Icon(
+                Icons.more_vert,
               ),
-              Tab(
-                text: "PIZZA",
-              ),
-              Tab(
-                text: "SALAD",
-              ),
-              Tab(
-                iconMargin: EdgeInsets.all(30),
-                text: "INDIAN",
-              ),
-              Tab(
-                iconMargin: EdgeInsets.all(30),
-                text: "KEBAB",
-              ),
-              Tab(
-                iconMargin: EdgeInsets.all(30),
-                text: "SANDWICH",
-              ),
-              Tab(
-                iconMargin: EdgeInsets.all(30),
-                text: "VEGETARIAN",
-              ),
-              Tab(
-                iconMargin: EdgeInsets.all(30),
-                text: "CHINESE",
-              ),
-            ],
-          ),
-          title: Text('Tabs Demo'),
+            ),
+          ],
+          bottom: cusTabBar,
+
+          title: cusTitle,
         ),
-        body: TabBarView(
+        body: (cusTabBar == null)?
+        Container(
+          child: RestaurantListView(restaurants: items, user: user,),
+        ) :
+        TabBarView(
           children: [
-            FoodsListView(foods: burgers,restaurants: restaurants,user: user,ontab: true,),
-            FoodsListView(foods: pizzas,restaurants: restaurants,user: user,ontab: true,),
-            FoodsListView(foods: salads,restaurants: restaurants,user: user,ontab: true,),
-            FoodsListView(foods: indians,restaurants: restaurants,user: user,ontab: true,),
-            FoodsListView(foods: kebabs,restaurants: restaurants,user: user,ontab: true,),
-            FoodsListView(foods: sandwichs,restaurants: restaurants,user: user,ontab: true,),
-            FoodsListView(foods: vegetarians,restaurants: restaurants,user: user,ontab: true,),
-            FoodsListView(foods: chineses,restaurants: restaurants,user: user,ontab: true,),
+            RestaurantListView(restaurants: burgerRst,user: user),
+            RestaurantListView(restaurants: pizzaRst,user: user),
+            RestaurantListView(restaurants: mexicanRst,user: user),
+            RestaurantListView(restaurants: indianRst,user: user),
+            RestaurantListView(restaurants: iranianRst,user: user),
+            RestaurantListView(restaurants: sandwichRst,user: user),
+            RestaurantListView(restaurants: chineseRst,user: user),
           ],
         ),
       ),

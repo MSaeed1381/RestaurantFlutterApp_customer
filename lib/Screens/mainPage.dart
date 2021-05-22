@@ -7,6 +7,7 @@ import 'package:snap_food/components/User.dart';
 import 'login.dart';
 import 'profilePage.dart';
 import 'signUp.dart';
+import 'package:snap_food/Screens/CartPage.dart';
 class MainPage extends StatefulWidget {
   final User user;
   const MainPage({
@@ -30,7 +31,7 @@ class _MainPageState extends State<MainPage> {
     final pages = [
       Home_page(user: user,),
       Container(),
-      Cart_page(),
+      CartPage(user: user,),
       ProfilePage(user: user,),
     ];
     return Scaffold(

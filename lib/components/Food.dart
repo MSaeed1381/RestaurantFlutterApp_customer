@@ -8,6 +8,7 @@ class Food {
   Image image;
   int price;
   int id;
+  int counter = 1;
   List comments = [];
   Food({String name, String details,this.id ,Image image, int price}){
     this.name = name;
@@ -21,6 +22,12 @@ class Food {
 
   void setDetails(String details) {
     this.details = details;
+  }
+  void increaseCounter(){
+    counter++;
+  }
+  int getCounter(){
+    return counter;
   }
 
   void setPrice(int price) {

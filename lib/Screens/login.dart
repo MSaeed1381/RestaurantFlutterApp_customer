@@ -144,7 +144,7 @@ class _LoginState extends State<Login> {
                       ),
                       onPressed: (){
                         if (_formKey.currentState.validate()){
-                          Navigator.push(
+                          Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(builder: (context) => MainPage()),
                           );

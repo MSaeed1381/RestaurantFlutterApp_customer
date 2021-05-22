@@ -153,7 +153,7 @@ class _Restaurant_pageState extends State<Restaurant_page> {
                 ),
                 Container(
                  child: DefaultTabController(
-                      length: 8, // length of tabs
+                      length: 5, // length of tabs
                       initialIndex: 0,
                       child:
                       Column(
@@ -166,25 +166,13 @@ class _Restaurant_pageState extends State<Restaurant_page> {
                             unselectedLabelColor: Colors.black,
                             tabs: [
                               Tab(
-                                text: "BURGER",
+                                text: "FAVORITE FOOD",
                               ),
                               Tab(
-                                text: "PIZZA",
+                                text: "FOOD",
                               ),
                               Tab(
                                 text: "SALAD",
-                              ),
-                              Tab(
-                                iconMargin: EdgeInsets.all(30),
-                                text: "INDIAN",
-                              ),
-                              Tab(
-                                iconMargin: EdgeInsets.all(30),
-                                text: "KEBAB",
-                              ),
-                              Tab(
-                                iconMargin: EdgeInsets.all(30),
-                                text: "SANDWICH",
                               ),
                               Tab(
                                 iconMargin: EdgeInsets.all(30),
@@ -192,7 +180,7 @@ class _Restaurant_pageState extends State<Restaurant_page> {
                               ),
                               Tab(
                                 iconMargin: EdgeInsets.all(30),
-                                text: "CHINESE",
+                                text: "DRINK",
                               ),
                             ],
                           ),
@@ -200,22 +188,18 @@ class _Restaurant_pageState extends State<Restaurant_page> {
                         Container(
                             height: 400, //height of TabBarView
                             decoration: BoxDecoration(
-
                                 border: Border(top: BorderSide(color: Colors.grey, width: 0.5))
                             ),
                             child: Container(
                               color: Colors.grey[600],
                               child: TabBarView(
                                   children: <Widget>[
-                                FoodsListView(foods: restaurant.Burger_List,restaurants: restaurants,user: user,ontab: false,),
-                                    FoodsListView(foods: restaurant.Pizza_List,restaurants: restaurants,user: user,ontab: false,),
-                                    FoodsListView(foods: restaurant.Salad_List,restaurants: restaurants,user: user,ontab: false,),
-                                    FoodsListView(foods: restaurant.Indian_List,restaurants: restaurants,user: user,ontab: false,),
-                                    FoodsListView(foods: restaurant.Kebab_List,restaurants: restaurants,user: user,ontab: false,),
-                                    FoodsListView(foods: restaurant.Sandwich_List,restaurants: restaurants,user: user,ontab: false,),
-                                    FoodsListView(foods: restaurant.Vegetarian_List,restaurants: restaurants,user: user,ontab: false,),
-                                    FoodsListView(foods: restaurant.Chinese_List,restaurants: restaurants,user: user,ontab: false,),
-                              ]),
+                                FoodsListView(foods: restaurant.favoriteFoodList,user: user,restaurant: restaurant,),
+                                    FoodsListView(foods: restaurant.foodList,user: user,restaurant: restaurant,),
+                                    FoodsListView(foods: restaurant.saladList,user: user,restaurant: restaurant,),
+                                    FoodsListView(foods: restaurant.vegetarianList,user: user,restaurant: restaurant,),
+                                    FoodsListView(foods: restaurant.drinkList,user: user,restaurant: restaurant,),
+                                    ]),
                             )
                         )
                       ])

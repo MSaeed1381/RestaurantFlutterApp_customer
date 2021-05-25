@@ -83,8 +83,11 @@ class _Home_pageState extends State<Home_page> {
 
                     },
                     decoration: InputDecoration(
-
-                      hintText: 'search...',
+                      hintText: 'Search...',
+                      hintStyle: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                     );
                   }

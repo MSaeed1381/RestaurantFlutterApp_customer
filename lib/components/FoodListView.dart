@@ -97,19 +97,21 @@ class FoodsListView extends StatelessWidget {
                       flex: 4,
                       child: GestureDetector(
                         onTap: (){
-                          if (user.cartList.keys.contains(restaurant)){
-                            print(user.cartList);
-                            if (user.cartList[restaurant].contains(foods[index])){
-                              foods[index].counter++;
+                          _showToast(context);
+                            if (user.cartList.keys.contains(restaurant)) {
+                              print(user.cartList);
+                              if (user.cartList[restaurant].contains(
+                                  foods[index])) {
+                                foods[index].counter++;
+                              }
+                              else {
+                                user.cartList[restaurant].add(foods[index]);
+                              }
                             }
-                            else{
+                            else {
+                              user.cartList[restaurant] = [];
                               user.cartList[restaurant].add(foods[index]);
                             }
-                          }
-                          else{
-                            user.cartList[restaurant] = [];
-                            user.cartList[restaurant].add(foods[index]);
-                          }
                         },
                         child: Container(
                           margin: EdgeInsets.only(
@@ -137,6 +139,28 @@ class FoodsListView extends StatelessWidget {
             ),
           );
         }
+    );
+  }
+  void _showToast(BuildContext context) {
+    final scaffold = ScaffoldMessenger.of(context);
+    scaffold.showSnackBar(
+      SnackBar(
+        content: Row(
+          children: [
+            Icon(Icons.check_box,color: Colors.green,),
+            SizedBox(
+              width: 10,
+            ),
+            Text('Successfully Added Cart',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+            ),),
+          ],
+        ),
+        action: SnackBarAction(
+            label: 'close', onPressed: scaffold.hideCurrentSnackBar),
+      ),
     );
   }
 }

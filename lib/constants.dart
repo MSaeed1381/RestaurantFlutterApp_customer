@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:snap_food/components/Food.dart';
 import 'package:snap_food/components/Food_Label.dart';
 import 'package:snap_food/components/Restaurant.dart';
+import 'package:snap_food/components/User.dart';
 
 const cardstyle = TextStyle(
   fontSize: 25,
@@ -308,3 +309,4 @@ var tabBar = TabBar(
     ),
   ],
 );
+

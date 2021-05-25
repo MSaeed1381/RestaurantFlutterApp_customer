@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:snap_food/components/Comment.dart';
 import 'package:snap_food/components/Food_Label.dart';
+import 'package:snap_food/components/User.dart';
 
 import 'Gender.dart';
 
@@ -26,5 +28,15 @@ class Restaurant {
     this.drinkList = drinkList;
     this.discount = discount;
     this.label = label;
+    User newUser = new User();
+    newUser.name = 'saeed zare';
+    newUser.personImage = AssetImage(
+        'images/userpic.png',
+    );
+    comments = [
+      new Comment(text: 'salam', score: 1,user: newUser),
+      new Comment(text: 'salam', score: 4,user: newUser),
+      new Comment(text: 'salam', score: 5, user: newUser),
+    ];
   }
   }

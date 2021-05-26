@@ -96,7 +96,7 @@ class _Restaurant_pageState extends State<Restaurant_page> {
               showDialog(
                   context: context,
                   builder: (_) {
-                    return MyDialog(restaurant: restaurant,user: user,);
+                    return SimpleCustomAlert(restaurant: restaurant,user: user,);
                   });
             },
             icon: Icon(
@@ -288,123 +288,153 @@ class _Restaurant_pageState extends State<Restaurant_page> {
     );
   }
 }
-class MyDialog extends StatefulWidget {
+class SimpleCustomAlert extends StatefulWidget {
   final User user;
   final Restaurant restaurant;
-  const MyDialog({
+  const SimpleCustomAlert({
     Key key,
     this.restaurant,
     this.user,
   }) : super(key: key);
-
   @override
-  _MyDialogState createState() => new _MyDialogState(restaurant, user);
+  _SimpleCustomAlertState createState() => _SimpleCustomAlertState(restaurant, user);
 }
-class _MyDialogState extends State<MyDialog> {
+
+class _SimpleCustomAlertState extends State<SimpleCustomAlert> {
   var _formKey = GlobalKey<FormState>();
   User user;
   Restaurant restaurant;
   int score = 3;
   String newText;
-  _MyDialogState(Restaurant restaurant, User user){
+  _SimpleCustomAlertState(Restaurant restaurant, User user){
     this.restaurant = restaurant;
     this.user = user;
   }
   @override
   Widget build(BuildContext context) {
-    return  AlertDialog(
-      title: const Text('add comment'),
-      content: SingleChildScrollView(
+    return Dialog(
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(4)
+      ),
+      child: Container(
+        margin: EdgeInsets.all(10),
+        height: 250,
+        width: 800,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Form(
-              key: _formKey,
-              child: TextFormField(
-                onSaved: (value){
-                  if (value.isNotEmpty){
-                    newText = value;
-                  }
-                },
-                decoration: InputDecoration(
-                  filled: true,
-                  icon: Icon(Icons.message),
-                  labelText: 'comment',
-                  labelStyle: TextStyle(
-                    fontSize: 20.0,
+            Expanded(
+              child: Container(
+                child: SizedBox.expand(
+                  child: Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Form(
+                          key: _formKey,
+                          child: TextFormField(
+                            onSaved: (value){
+                              if (value.isNotEmpty){
+                                newText = value;
+                              }
+                            },
+                            decoration: InputDecoration(
+                              filled: true,
+                              icon: Icon(Icons.message),
+                              labelText: 'comment',
+                              labelStyle: TextStyle(
+                                fontSize: 20.0,
+                              ),
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('Rate : ',
+                            style: TextStyle(
+                              fontSize: 25,
+                            ),),
+                            Text(score.toString(),
+                              style: TextStyle(
+                                fontSize: 25,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.blue[700]
+                              ),),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 8,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            RawMaterialButton(
+                              fillColor: Colors.purple[400],
+                              child: Text('-',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.w900,
+                                ),),
+                              onPressed: (){
+                                if (score > 1){
+                                  setState(() {
+                                    score--;
+                                  });
+                                }
+                              },
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            RawMaterialButton(
+                              fillColor: Colors.purple[400],
+                              child: Text('+',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.w900,
+                                ),),
+                              onPressed: (){
+                                setState(() {
+                                  if (score < 5){
+                                    score++;
+                                  }
+                                });
+
+                              },
+                            ),
+                          ],
+                        ),
+                        TextButton(
+                          child: Text('Okay'),
+                          onPressed: (){
+                            _formKey.currentState.save();
+          if (newText != null){
+    Comment newComment = new Comment(score: score,text: newText,user: user);
+    restaurant.comments.add(newComment);
+    user.comments.add(newComment);
+    }
+                            Navigator.of(context).pop();
+                          },
+                        )
+                      ],
+                    ),
                   ),
-                  border: OutlineInputBorder(),
                 ),
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('Rate : '),
-                Text(score.toString(),
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.w900,
-                  ),),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                RawMaterialButton(
-                  fillColor: Colors.grey,
-                  child: Text('-',
-                    style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.w900,
-                    ),),
-                  onPressed: (){
-                    if (score > 1){
-                      setState(() {
-                        score--;
-                      });
-                    }
-                  },
-                ),
-                RawMaterialButton(
-                  fillColor: Colors.grey,
-                  child: Text('+',
-                    style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.w900,
-                    ),),
-                  onPressed: (){
-                    setState(() {
-                      if (score < 5){
-                        score++;
-                      }
-                    });
-
-                  },
-                ),
-              ],
-            ),
-
+            )
           ],
         ),
       ),
-      actions: <Widget>[
-        TextButton(
-          child: const Text('ok'),
-          onPressed: () {
-            _formKey.currentState.save();
-            print(newText);
-            if (newText != null){
-              Comment newComment = new Comment(score: score,text: newText,user: user);
-              restaurant.comments.add(newComment);
-              user.comments.add(newComment);
-            }
-
-
-            Navigator.of(context).pop();
-          },
-        ),
-      ],
     );
   }
 }
+

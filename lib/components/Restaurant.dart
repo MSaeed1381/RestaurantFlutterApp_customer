@@ -29,6 +29,7 @@ class Restaurant {
     this.discount = discount;
     this.label = label;
     User newUser = new User();
+    newUser.userGender = Gender.MALE;
     newUser.name = 'saeed zare';
     newUser.personImage = AssetImage(
         'images/userpic.png',

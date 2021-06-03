@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:snap_food/components/RestaurantListView.dart';
 import '../components/User.dart';
 import 'login.dart';
 import 'signUp.dart';
@@ -24,7 +25,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-
+leading: Container(),
       ),
       body: Container(
         child: SingleChildScrollView(
@@ -142,18 +143,23 @@ class _ProfilePageState extends State<ProfilePage> {
                           Icons.star,
                           size: 30,
                         ),
-                        Column(
-                          children: [
-                            Text('Favorite',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w900,
-                            ),),
-                            Text('Restaurant',style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w900,
-                            ),),
-                          ],
+                        GestureDetector(
+                          onTap: (){
+                            _showFavoriteRestaurant(user.favoriteRestaurants,user);
+                          },
+                          child: Column(
+                            children: [
+                              Text('Favorite',
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w900,
+                              ),),
+                              Text('Restaurant',style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w900,
+                              ),),
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -224,4 +230,20 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
     );
   }
+  void _showFavoriteRestaurant(List restaurants, User user){
+    showModalBottomSheet(
+        context: context,
+        isScrollControlled: false,
+        //useRootNavigator: true,
+        builder: (builder) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.grey,
+      ),
+        child: RestaurantListView(restaurants: restaurants, user: user,)
+    );
+    });
+  }
 }
+
+

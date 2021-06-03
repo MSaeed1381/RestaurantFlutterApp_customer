@@ -9,6 +9,16 @@ const cardstyle = TextStyle(
   fontSize: 25,
   fontWeight: FontWeight.w900,
 );
+const kLoginTitle = TextStyle(
+  fontFamily: 'Lobster',
+  fontSize: 25.0,
+  fontWeight: FontWeight.w700,
+  letterSpacing: 3.0,
+);
+const kGenderStyle = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w700
+);
 const restaurantTitleStyle = TextStyle(
   fontWeight: FontWeight.w900,
   fontSize: 30,
@@ -27,6 +37,285 @@ const restaurantListStyle = TextStyle(
 List AllRestaurants = [
   Restaurant(
     name: 'Restaurant A',
+    image: Image(
+      image: AssetImage('images/restaurants.jpg'),
+    ),
+    label: RestaurantLabel.BURGER,
+    discount: 20,
+    foodList: [
+      Food(
+          name: 'Burger1',
+          details: 'burger fsf sfsdffs fsdfs',
+          image: Image(
+            image: AssetImage('images/pizza1.jpg'),
+          ),
+          price: 10),
+      Food(
+          name: 'Burger2',
+          details: 'burger fsf sfsdffs fsdfs',
+          image: Image(
+            image: AssetImage('images/pizza1.jpg'),
+          ),
+          price: 10),
+      Food(
+          name: 'Burger3',
+          details: 'burger fsf sfsdffs fsdfs',
+          image: Image(
+            image: AssetImage('images/pizza1.jpg'),
+          ),
+          price: 10),
+      Food(
+          name: 'Burger4',
+          details: 'burger fsf sfsdffs fsdfs',
+          image: Image(
+            image: AssetImage('images/pizza1.jpg'),
+          ),
+          price: 10),
+    ],
+    saladList: [
+      Food(
+          name: 'salad1',
+          details: 'burger fsf sfsdffs fsdfs',
+          image: Image(
+            image: AssetImage('images/pizza1.jpg'),
+          ),
+          price: 10),
+      Food(
+          name: 'salad2',
+          details: 'burger fsf sfsdffs fsdfs',
+          image: Image(
+            image: AssetImage('images/pizza1.jpg'),
+          ),
+          price: 10),
+      Food(
+          name: 'salad3',
+          details: 'burger fsf sfsdffs fsdfs',
+          image: Image(
+            image: AssetImage('images/pizza1.jpg'),
+          ),
+          price: 10),
+      Food(
+          name: 'salad4',
+          details: 'burger fsf sfsdffs fsdfs',
+          image: Image(
+            image: AssetImage('images/pizza1.jpg'),
+          ),
+          price: 10),
+    ],
+    vegetarianList: [
+      Food(
+          name: 'veg1',
+          details: 'burger fsf sfsdffs fsdfs',
+          image: Image(
+            image: AssetImage('images/pizza1.jpg'),
+          ),
+          price: 10),
+      Food(
+          name: 'veg2',
+          details: 'burger fsf sfsdffs fsdfs',
+          image: Image(
+            image: AssetImage('images/pizza1.jpg'),
+          ),
+          price: 10),
+    ],
+    drinkList: [
+      Food(
+          name: 'drink1',
+          details: 'burger fsf sfsdffs fsdfs',
+          image: Image(
+            image: AssetImage('images/pizza1.jpg'),
+          ),
+          price: 10),
+    ],
+  ),
+  Restaurant(
+    name: 'Restaurant D',
+    image: Image(
+      image: AssetImage('images/restaurants.jpg'),
+    ),
+    label: RestaurantLabel.BURGER,
+    discount: 20,
+    foodList: [
+      Food(
+          name: 'Burger1',
+          details: 'burger fsf sfsdffs fsdfs',
+          image: Image(
+            image: AssetImage('images/pizza1.jpg'),
+          ),
+          price: 10),
+      Food(
+          name: 'Burger2',
+          details: 'burger fsf sfsdffs fsdfs',
+          image: Image(
+            image: AssetImage('images/pizza1.jpg'),
+          ),
+          price: 10),
+      Food(
+          name: 'Burger3',
+          details: 'burger fsf sfsdffs fsdfs',
+          image: Image(
+            image: AssetImage('images/pizza1.jpg'),
+          ),
+          price: 10),
+      Food(
+          name: 'Burger4',
+          details: 'burger fsf sfsdffs fsdfs',
+          image: Image(
+            image: AssetImage('images/pizza1.jpg'),
+          ),
+          price: 10),
+    ],
+    saladList: [
+      Food(
+          name: 'salad1',
+          details: 'burger fsf sfsdffs fsdfs',
+          image: Image(
+            image: AssetImage('images/pizza1.jpg'),
+          ),
+          price: 10),
+      Food(
+          name: 'salad2',
+          details: 'burger fsf sfsdffs fsdfs',
+          image: Image(
+            image: AssetImage('images/pizza1.jpg'),
+          ),
+          price: 10),
+      Food(
+          name: 'salad3',
+          details: 'burger fsf sfsdffs fsdfs',
+          image: Image(
+            image: AssetImage('images/pizza1.jpg'),
+          ),
+          price: 10),
+      Food(
+          name: 'salad4',
+          details: 'burger fsf sfsdffs fsdfs',
+          image: Image(
+            image: AssetImage('images/pizza1.jpg'),
+          ),
+          price: 10),
+    ],
+    vegetarianList: [
+      Food(
+          name: 'veg1',
+          details: 'burger fsf sfsdffs fsdfs',
+          image: Image(
+            image: AssetImage('images/pizza1.jpg'),
+          ),
+          price: 10),
+      Food(
+          name: 'veg2',
+          details: 'burger fsf sfsdffs fsdfs',
+          image: Image(
+            image: AssetImage('images/pizza1.jpg'),
+          ),
+          price: 10),
+    ],
+    drinkList: [
+      Food(
+          name: 'drink1',
+          details: 'burger fsf sfsdffs fsdfs',
+          image: Image(
+            image: AssetImage('images/pizza1.jpg'),
+          ),
+          price: 10),
+    ],
+  ),
+  Restaurant(
+    name: 'Restaurant E',
+    image: Image(
+      image: AssetImage('images/restaurants.jpg'),
+    ),
+    label: RestaurantLabel.BURGER,
+    discount: 20,
+    foodList: [
+      Food(
+          name: 'Burger1',
+          details: 'burger fsf sfsdffs fsdfs',
+          image: Image(
+            image: AssetImage('images/pizza1.jpg'),
+          ),
+          price: 10),
+      Food(
+          name: 'Burger2',
+          details: 'burger fsf sfsdffs fsdfs',
+          image: Image(
+            image: AssetImage('images/pizza1.jpg'),
+          ),
+          price: 10),
+      Food(
+          name: 'Burger3',
+          details: 'burger fsf sfsdffs fsdfs',
+          image: Image(
+            image: AssetImage('images/pizza1.jpg'),
+          ),
+          price: 10),
+      Food(
+          name: 'Burger4',
+          details: 'burger fsf sfsdffs fsdfs',
+          image: Image(
+            image: AssetImage('images/pizza1.jpg'),
+          ),
+          price: 10),
+    ],
+    saladList: [
+      Food(
+          name: 'salad1',
+          details: 'burger fsf sfsdffs fsdfs',
+          image: Image(
+            image: AssetImage('images/pizza1.jpg'),
+          ),
+          price: 10),
+      Food(
+          name: 'salad2',
+          details: 'burger fsf sfsdffs fsdfs',
+          image: Image(
+            image: AssetImage('images/pizza1.jpg'),
+          ),
+          price: 10),
+      Food(
+          name: 'salad3',
+          details: 'burger fsf sfsdffs fsdfs',
+          image: Image(
+            image: AssetImage('images/pizza1.jpg'),
+          ),
+          price: 10),
+      Food(
+          name: 'salad4',
+          details: 'burger fsf sfsdffs fsdfs',
+          image: Image(
+            image: AssetImage('images/pizza1.jpg'),
+          ),
+          price: 10),
+    ],
+    vegetarianList: [
+      Food(
+          name: 'veg1',
+          details: 'burger fsf sfsdffs fsdfs',
+          image: Image(
+            image: AssetImage('images/pizza1.jpg'),
+          ),
+          price: 10),
+      Food(
+          name: 'veg2',
+          details: 'burger fsf sfsdffs fsdfs',
+          image: Image(
+            image: AssetImage('images/pizza1.jpg'),
+          ),
+          price: 10),
+    ],
+    drinkList: [
+      Food(
+          name: 'drink1',
+          details: 'burger fsf sfsdffs fsdfs',
+          image: Image(
+            image: AssetImage('images/pizza1.jpg'),
+          ),
+          price: 10),
+    ],
+  ),
+  Restaurant(
+    name: 'Restaurant F',
     image: Image(
       image: AssetImage('images/restaurants.jpg'),
     ),

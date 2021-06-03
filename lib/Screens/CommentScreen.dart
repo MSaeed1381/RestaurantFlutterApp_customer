@@ -83,7 +83,7 @@ var cusColor;
                   ],
                 ),
                 SizedBox(
-                  height: 15,
+                  height: 10,
                 ),
                 Container(
                   child: Text(restaurant.comments[index].text.toString(),

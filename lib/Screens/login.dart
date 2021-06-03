@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'mainPage.dart';
 import 'signUp.dart';
 import 'package:snap_food/Screens/mainPage.dart';
+import 'package:snap_food/constants.dart';
 class Login extends StatefulWidget {
   @override
   _LoginState createState() => _LoginState();
@@ -17,12 +18,11 @@ class _LoginState extends State<Login> {
     return Scaffold(
       backgroundColor: Colors.lime[200],
       appBar: AppBar(
-      title: Text("SNAP  FOOD",
+      title: Text("snap food",
       style: TextStyle(
         color: Colors.black,
-        fontSize: 22,
+        fontSize: 20,
       ),),
-        centerTitle: true,
       ),
         body: Container(
           child: SingleChildScrollView(
@@ -33,7 +33,7 @@ class _LoginState extends State<Login> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    padding: EdgeInsetsDirectional.only(top: 20),
+                    padding: EdgeInsetsDirectional.only(top: 10),
                     height: MediaQuery.of(context).size.height * 0.32,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
@@ -48,14 +48,10 @@ class _LoginState extends State<Login> {
                         children: [
                           Icon(
                           Icons.fastfood,
-                          size: 150.0,
+                          size: 130.0,
                         ),
                         Text("Welcome To SnapFood!",
-                        style: TextStyle(
-                          fontFamily: 'Lobster',
-                        fontSize: 25.0,
-                        letterSpacing: 3.0,
-                        ),
+                        style: kLoginTitle,
                         ),
                         ],
                       ),
@@ -77,6 +73,7 @@ class _LoginState extends State<Login> {
                   },
                   maxLength: 11,
                   decoration: InputDecoration(
+                    contentPadding: EdgeInsets.only(top: 22, bottom: 22),
                     filled: true,
                     prefixIcon: Icon(Icons.call),
                     labelText: 'phoneNumber',
@@ -100,6 +97,7 @@ class _LoginState extends State<Login> {
                         return null;
                       },
                       decoration: InputDecoration(
+                        contentPadding: EdgeInsets.only(top: 10, bottom: 10),
                         filled: true,
                         labelText: 'password',
                         labelStyle: TextStyle(
@@ -108,15 +106,11 @@ class _LoginState extends State<Login> {
                         border: OutlineInputBorder(),
                         prefixIcon: Icon(Icons.lock),
                         suffix: IconButton(
-                          icon: visIcon,
-                          onPressed: (){
+                          icon: Icon(_securityPassword
+                              ? Icons.visibility_off
+                              : Icons.visibility),
+                          onPressed: () {
                             setState(() {
-                              if (_securityPassword){
-                                visIcon = Icon(Icons.visibility);
-                              }
-                              else {
-                                visIcon = Icon(Icons.visibility_off);
-                              }
                               _securityPassword = !_securityPassword;
                             });
                           },
@@ -134,7 +128,7 @@ class _LoginState extends State<Login> {
                     ),),
                   ),
                   SizedBox(
-                    height: 10,
+                    height: 20,
                   ),
                   Center(
                     child: ElevatedButton(

@@ -33,6 +33,7 @@ class _Restaurant_pageState extends State<Restaurant_page> {
   var cusIcon = Icon(Icons.search);
   bool isLike;
   var cusTitle;
+  String commentsNumber;
   _Restaurant_pageState(User user, Restaurant restaurant, List restaurants){
     this.restaurants = restaurants;
     this.user = user;
@@ -44,6 +45,13 @@ class _Restaurant_pageState extends State<Restaurant_page> {
     allFoods.addAll(restaurant.drinkList);
     allFoods.addAll(restaurant.vegetarianList);
     allFoods.addAll(restaurant.saladList);
+    commentsNumber = restaurant.comments.length.toString();
+  }
+
+  change(String newNumber){
+    setState(() {
+      commentsNumber = newNumber;
+    });
   }
   @override
   Widget build(BuildContext context) {
@@ -96,7 +104,7 @@ class _Restaurant_pageState extends State<Restaurant_page> {
               showDialog(
                   context: context,
                   builder: (_) {
-                    return SimpleCustomAlert(restaurant: restaurant,user: user,);
+                    return SimpleCustomAlert(restaurant: restaurant,user: user,function: change,);
                   });
             },
             icon: Icon(
@@ -137,6 +145,9 @@ class _Restaurant_pageState extends State<Restaurant_page> {
                               style: restaurantTitleStyle,
                             ) ,
                         ),
+                        SizedBox(
+                          width: 90,
+                        ),
                         GestureDetector(
                           onTap: (){
                             Navigator.push(context, MaterialPageRoute(builder: (context) => CommentScreen(restaurant: restaurant,)));
@@ -144,7 +155,10 @@ class _Restaurant_pageState extends State<Restaurant_page> {
                           child: Container(
                             margin: EdgeInsets.only(top: 13, left: 10),
                             padding: EdgeInsets.all(10),
-                            color: Colors.grey[400],
+                            decoration: BoxDecoration(
+                              color: Colors.grey[400],
+                              borderRadius: BorderRadius.all(Radius.circular(10))
+                            ),
                             child: Row(
                               children: [
                                 Icon(
@@ -153,7 +167,7 @@ class _Restaurant_pageState extends State<Restaurant_page> {
                                 SizedBox(
                                   width: 5,
                                 ),
-                                Text('comments',
+                                Text(commentsNumber,
                                   style: TextStyle(
                                     fontSize: 20,
                                   ),),
@@ -289,26 +303,30 @@ class _Restaurant_pageState extends State<Restaurant_page> {
   }
 }
 class SimpleCustomAlert extends StatefulWidget {
+  final function;
   final User user;
   final Restaurant restaurant;
   const SimpleCustomAlert({
     Key key,
     this.restaurant,
     this.user,
+    this.function
   }) : super(key: key);
   @override
-  _SimpleCustomAlertState createState() => _SimpleCustomAlertState(restaurant, user);
+  _SimpleCustomAlertState createState() => _SimpleCustomAlertState(restaurant, user, function);
 }
 
 class _SimpleCustomAlertState extends State<SimpleCustomAlert> {
   var _formKey = GlobalKey<FormState>();
   User user;
   Restaurant restaurant;
+  Function function;
   int score = 3;
   String newText;
-  _SimpleCustomAlertState(Restaurant restaurant, User user){
+  _SimpleCustomAlertState(Restaurant restaurant, User user, Function function){
     this.restaurant = restaurant;
     this.user = user;
+    this.function = function;
   }
   @override
   Widget build(BuildContext context) {
@@ -354,29 +372,23 @@ class _SimpleCustomAlertState extends State<SimpleCustomAlert> {
                         SizedBox(
                           height: 10,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text('Rate : ',
-                            style: TextStyle(
-                              fontSize: 25,
-                            ),),
-                            Text(score.toString(),
-                              style: TextStyle(
-                                fontSize: 25,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.blue[700]
-                              ),),
-                          ],
-                        ),
                         SizedBox(
                           height: 8,
                         ),
+                        Text('Rate',
+                          style: TextStyle(
+                            fontSize: 25,
+                          ),),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             RawMaterialButton(
-                              fillColor: Colors.purple[400],
+                              constraints: BoxConstraints.tightFor(
+                                width: 40,
+                                height: 40,
+                              ),
+                              shape: CircleBorder(),
+                              fillColor: Colors.orange,
                               child: Text('-',
                                 style: TextStyle(
                                   color: Colors.white,
@@ -394,8 +406,28 @@ class _SimpleCustomAlertState extends State<SimpleCustomAlert> {
                             SizedBox(
                               width: 10,
                             ),
+
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(score.toString(),
+                                  style: TextStyle(
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.blue[700]
+                                  ),),
+                              ],
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
                             RawMaterialButton(
-                              fillColor: Colors.purple[400],
+                              constraints: BoxConstraints.tightFor(
+                                width: 40,
+                                height: 40,
+                              ),
+                              shape: CircleBorder(),
+                              fillColor: Colors.orange,
                               child: Text('+',
                                 style: TextStyle(
                                   color: Colors.white,
@@ -414,15 +446,19 @@ class _SimpleCustomAlertState extends State<SimpleCustomAlert> {
                           ],
                         ),
                         TextButton(
-                          child: Text('Okay'),
+                          child: Text('Ok',
+                          style: TextStyle(
+                            fontSize: 20,
+                          ),),
                           onPressed: (){
-                            _formKey.currentState.save();
-          if (newText != null){
-    Comment newComment = new Comment(score: score,text: newText,user: user);
-    restaurant.comments.add(newComment);
-    user.comments.add(newComment);
-    }
-                            Navigator.of(context).pop();
+                              _formKey.currentState.save();
+                              if (newText != null){
+                                Comment newComment = new Comment(score: score,text: newText,user: user);
+                                restaurant.comments.add(newComment);
+                                user.comments.add(newComment);
+                                widget.function(restaurant.comments.length.toString());
+                              }
+                              Navigator.of(context).pop();
                           },
                         )
                       ],

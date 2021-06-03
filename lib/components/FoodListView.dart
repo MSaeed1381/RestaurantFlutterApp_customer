@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:snap_food/Screens/RestaurantPage.dart';
+import 'package:snap_food/components/MyNotFoundContainer.dart';
 import 'package:snap_food/constants.dart';
 import 'User.dart';
 class FoodsListView extends StatelessWidget {
@@ -9,7 +10,10 @@ class FoodsListView extends StatelessWidget {
   User user;
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
+    if (foods.isEmpty) {
+      return MyNotFoundContainer(text: "sorry! no food found");
+    } else {
+      return ListView.builder(
         padding: const EdgeInsets.only(left: 8, right: 8, top: 5, bottom: 5),
         itemCount: foods.length,
         itemBuilder: (BuildContext context, int index) {
@@ -140,6 +144,7 @@ class FoodsListView extends StatelessWidget {
           );
         }
     );
+    }
   }
   void _showToast(BuildContext context) {
     final scaffold = ScaffoldMessenger.of(context);

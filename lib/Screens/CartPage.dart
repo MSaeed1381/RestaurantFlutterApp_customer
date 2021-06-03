@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:snap_food/Screens/RestaurantPage.dart';
+import 'package:snap_food/components/MyNotFoundContainer.dart';
 import 'package:snap_food/components/Restaurant.dart';
 import 'package:snap_food/constants.dart';
 import 'package:snap_food/components/User.dart';
@@ -22,9 +23,10 @@ class _CartPageState extends State<CartPage> {
       return Scaffold(
         backgroundColor: Colors.grey[500],
         appBar: AppBar(
+          leading: Icon(Icons.shopping_cart, size: 30,),
           title: Text('Cart'),
         ),
-        body: ListView.builder(
+        body: (user.cartList.isEmpty)?MyNotFoundContainer(text : "the list is empty"): ListView.builder(
           itemBuilder: (context, index) {
             Restaurant currentRestaurant = user.cartList.keys.toList()[index];
             return Padding(
